@@ -3,20 +3,259 @@
 // Replace with real API calls when ready
 // =============================================
 
+
+
+
+
+// @/data/mock-data.ts
+
+// --- OVERALL SUMMARY DATA ---
+
+// export const monthlyTrend = [
+//   { month: "Jan", credits: 4500, consumed: 4000, flights: 320 },
+//   { month: "Feb", credits: 5200, consumed: 4800, flights: 380 },
+//   { month: "Mar", credits: 4800, consumed: 4600, flights: 350 },
+//   { month: "Apr", credits: 6100, consumed: 5800, flights: 420 },
+//   { month: "May", credits: 5900, consumed: 5400, flights: 400 },
+//   { month: "Jun", credits: 6500, consumed: 6200, flights: 480 },
+// ];
+
+// export const passTypes = [
+//   { name: "Annual Pass", value: 840 },
+//   { name: "Monthly Pass", value: 405 },
+// ];
+
+// export const flightTypeData = [
+//   { month: "Jan", domestic: 240, international: 80 },
+//   { month: "Feb", domestic: 290, international: 90 },
+//   { month: "Mar", domestic: 260, international: 90 },
+//   { month: "Apr", domestic: 310, international: 110 },
+//   { month: "May", domestic: 300, international: 100 },
+//   { month: "Jun", domestic: 350, international: 130 },
+// ];
+
+// export const departmentSavings = [
+//   { department: "Sales", savings: 45000 },
+//   { department: "Engineering", savings: 38000 },
+//   { department: "Marketing", savings: 32000 },
+//   { department: "HR", savings: 28000 },
+//   { department: "Finance", savings: 20000 },
+// ];
+
+// // --- CREDIT USAGE & SPEND TRACKING DATA ---
+
+// export const creditConsumption = [
+//   { month: "Jan", flights: 3000, baggage: 600, upgrades: 400 },
+//   { month: "Feb", flights: 3500, baggage: 800, upgrades: 500 },
+//   { month: "Mar", flights: 3200, baggage: 700, upgrades: 700 },
+//   { month: "Apr", flights: 4000, baggage: 1000, upgrades: 800 },
+// ];
+
+// export const burnRateData = [
+//   { month: "Week 1", consumed: 1200, allocated: 1400 },
+//   { month: "Week 2", consumed: 1550, allocated: 1400 },
+//   { month: "Week 3", consumed: 1300, allocated: 1400 },
+//   { month: "Week 4", consumed: 1700, allocated: 1400 },
+// ];
+
+// export const peakData = [
+//   { day: "Mon", peak: 850, nonPeak: 300 },
+//   { day: "Tue", peak: 920, nonPeak: 250 },
+//   { day: "Wed", peak: 880, nonPeak: 280 },
+//   { day: "Thu", peak: 950, nonPeak: 200 },
+//   { day: "Fri", peak: 700, nonPeak: 450 },
+//   { day: "Sat", peak: 200, nonPeak: 600 },
+//   { day: "Sun", peak: 150, nonPeak: 550 },
+// ];
+
+// export const futureExposure = [
+//   { month: "Jul", blocked: 2500, pending: 1200 },
+//   { month: "Aug", blocked: 2100, pending: 1800 },
+//   { month: "Sep", blocked: 1800, pending: 2500 },
+//   { month: "Oct", blocked: 1200, pending: 3000 },
+// ];
+
+// --- BOOKING & TRAVEL VISIBILITY DATA ---
+
+export const travelStatusMetrics = {
+  total: "1,240",
+  completed: "980",
+  ongoing: "42",
+  future: "218",
+};
+
+export const bookingVolumeData = [
+  { month: "Jan", total: 180, completed: 150 },
+  { month: "Feb", total: 210, completed: 180 },
+  { month: "Mar", total: 195, completed: 175 },
+  { month: "Apr", total: 240, completed: 210 },
+  { month: "May", total: 220, completed: 190 },
+  { month: "Jun", total: 260, completed: 230 },
+];
+
+export const advanceBookingData = [
+  { name: "Advance (>14 Days)", value: 74 },
+  { name: "Standard (7-14 Days)", value: 15 },
+  { name: "Short-Notice (<48 Hours)", value: 11 },
+];
+
+// Add this to your @/data/mock-data.ts file
+
+export const departmentUsage = [
+  { 
+    department: "Engineering", 
+    credits: 18500, 
+    bookings: 142, 
+    savings: 12400,
+    activeUsers: 85,
+    totalUsers: 97
+  },
+  { 
+    department: "Sales", 
+    credits: 15200, 
+    bookings: 110, 
+    savings: 9800,
+    activeUsers: 62,
+    totalUsers: 65
+  },
+  { 
+    department: "Marketing", 
+    credits: 9800, 
+    bookings: 75, 
+    savings: 6500,
+    activeUsers: 45,
+    totalUsers: 52
+  },
+  { 
+    department: "Finance", 
+    credits: 7400, 
+    bookings: 58, 
+    savings: 4200,
+    activeUsers: 30,
+    totalUsers: 32
+  },
+  { 
+    department: "HR", 
+    credits: 4100, 
+    bookings: 32, 
+    savings: 2100,
+    activeUsers: 15,
+    totalUsers: 25
+  },
+];
+
+
+
+export const optimizationOpportunities = [
+  { 
+    route: "NYC - LON", 
+    observation: "High volume of short-notice bookings in Sales.", 
+    recommendation: "Advance Booking Policy", 
+    potentialSavings: 12500 
+  },
+  { 
+    route: "SFO - TYO", 
+    observation: "65% usage of peak-time credits in Engineering.", 
+    recommendation: "Off-Peak Scheduling", 
+    potentialSavings: 8400 
+  },
+  { 
+    route: "Domestic - Regional", 
+    observation: "Underutilization of Annual Pass credits.", 
+    recommendation: "Credit Reallocation", 
+    potentialSavings: 4200 
+  }
+];
+
+
+export const mmpData = [
+  { category: "Pass Extensions", count: 156, trend: 12 },
+  { category: "Credit Top-Ups", count: 342, trend: 18 },
+  { category: "Extra Passengers", count: 89, trend: 5 },
+  { category: "Upsell Usage", count: 128, trend: 22 },
+  { category: "Peak Bookings", count: 245, trend: -4 }
+];
+
+// Add 'changes', 'topups', and 'extensions' keys to your monthlyTrend for the lines to render
+
+
+
 // ---- Monthly trend data ----
+// @/data/mock-data.ts
+
 export const monthlyTrend = [
-  { month: "Jan", credits: 4200, flights: 320, bookings: 380, spend: 84000, tax: 12600 },
-  { month: "Feb", credits: 3800, flights: 290, bookings: 340, spend: 76000, tax: 11400 },
-  { month: "Mar", credits: 5100, flights: 410, bookings: 470, spend: 102000, tax: 15300 },
-  { month: "Apr", credits: 4700, flights: 380, bookings: 430, spend: 94000, tax: 14100 },
-  { month: "May", credits: 5500, flights: 440, bookings: 510, spend: 110000, tax: 16500 },
-  { month: "Jun", credits: 4900, flights: 390, bookings: 450, spend: 98000, tax: 14700 },
-  { month: "Jul", credits: 5800, flights: 470, bookings: 540, spend: 116000, tax: 17400 },
-  { month: "Aug", credits: 5200, flights: 420, bookings: 480, spend: 104000, tax: 15600 },
-  { month: "Sep", credits: 4600, flights: 370, bookings: 420, spend: 92000, tax: 13800 },
-  { month: "Oct", credits: 5400, flights: 430, bookings: 500, spend: 108000, tax: 16200 },
-  { month: "Nov", credits: 6100, flights: 490, bookings: 560, spend: 122000, tax: 18300 },
-  { month: "Dec", credits: 5700, flights: 460, bookings: 530, spend: 114000, tax: 17100 },
+  { 
+    month: "Jan", credits: 4200, flights: 320, bookings: 380, spend: 84000, 
+    consumed: 4000, allocated: 4500, baggage: 600, upgrades: 400,
+    completed: 310, ongoing: 12, changes: 45, topups: 110, extensions: 15, 
+    savings: 12600, tax: 15500, payments: 85000, usage: 82000 
+  },
+  { 
+    month: "Feb", credits: 3800, flights: 290, bookings: 340, spend: 76000, 
+    consumed: 3700, allocated: 4500, baggage: 550, upgrades: 350,
+    completed: 280, ongoing: 15, changes: 38, topups: 95, extensions: 12, 
+    savings: 11400, tax: 13800, payments: 70000, usage: 74000 
+  },
+  { 
+    month: "Mar", credits: 5100, flights: 410, bookings: 470, spend: 102000, 
+    consumed: 4900, allocated: 4500, baggage: 800, upgrades: 600,
+    completed: 400, ongoing: 18, changes: 52, topups: 140, extensions: 22, 
+    savings: 15300, tax: 18200, payments: 105000, usage: 98000 
+  },
+  { 
+    month: "Apr", credits: 4700, flights: 380, bookings: 430, spend: 94000, 
+    consumed: 4600, allocated: 5000, baggage: 700, upgrades: 550,
+    completed: 360, ongoing: 22, changes: 41, topups: 115, extensions: 18, 
+    savings: 14100, tax: 16400, payments: 92000, usage: 90000 
+  },
+  { 
+    month: "May", credits: 5500, flights: 440, bookings: 510, spend: 110000, 
+    consumed: 5300, allocated: 5000, baggage: 900, upgrades: 750,
+    completed: 440, ongoing: 25, changes: 58, topups: 150, extensions: 25, 
+    savings: 16500, tax: 19200, payments: 112000, usage: 108000 
+  },
+  { 
+    month: "Jun", credits: 4900, flights: 390, bookings: 450, spend: 98000, 
+    consumed: 4750, allocated: 5000, baggage: 750, upgrades: 650,
+    completed: 380, ongoing: 20, changes: 44, topups: 125, extensions: 20, 
+    savings: 14700, tax: 17100, payments: 100000, usage: 96000 
+  },
+  { 
+    month: "Jul", credits: 5800, flights: 470, bookings: 540, spend: 116000, 
+    consumed: 5600, allocated: 5500, baggage: 1000, upgrades: 850,
+    completed: 460, ongoing: 28, changes: 65, topups: 165, extensions: 28, 
+    savings: 17400, tax: 20300, payments: 118000, usage: 114000 
+  },
+  { 
+    month: "Aug", credits: 5200, flights: 420, bookings: 480, spend: 104000, 
+    consumed: 5100, allocated: 5500, baggage: 850, upgrades: 750,
+    completed: 410, ongoing: 30, changes: 49, topups: 135, extensions: 24, 
+    savings: 15600, tax: 18200, payments: 106000, usage: 102000 
+  },
+  { 
+    month: "Sep", credits: 4600, flights: 370, bookings: 420, spend: 92000, 
+    consumed: 4500, allocated: 5500, baggage: 700, upgrades: 600,
+    completed: 350, ongoing: 24, changes: 40, topups: 110, extensions: 16, 
+    savings: 13800, tax: 16100, payments: 94000, usage: 90000 
+  },
+  { 
+    month: "Oct", credits: 5400, flights: 430, bookings: 500, spend: 108000, 
+    consumed: 5250, allocated: 6000, baggage: 950, upgrades: 800,
+    completed: 425, ongoing: 26, changes: 55, topups: 145, extensions: 21, 
+    savings: 16200, tax: 18900, payments: 110000, usage: 106000 
+  },
+  { 
+    month: "Nov", credits: 6100, flights: 490, bookings: 560, spend: 122000, 
+    consumed: 5950, allocated: 6000, baggage: 1100, upgrades: 950,
+    completed: 490, ongoing: 32, changes: 70, topups: 175, extensions: 32, 
+    savings: 18300, tax: 21300, payments: 125000, usage: 120000 
+  },
+  { 
+    month: "Dec", credits: 5700, flights: 460, bookings: 530, spend: 114000, 
+    consumed: 5600, allocated: 6000, baggage: 1050, upgrades: 900,
+    completed: 450, ongoing: 35, changes: 62, topups: 160, extensions: 30, 
+    savings: 17100, tax: 19900, payments: 116000, usage: 112000 
+  },
 ];
 
 // ---- Pass type distribution ----
@@ -210,12 +449,72 @@ export const taxBreakup = [
 ];
 
 // ---- Scheduled Reports ----
+// --- EXPORT & ACCESS CONTROL DATA ---
+
 export const scheduledReports = [
-  { id: "RPT-001", name: "Monthly Credit Summary", frequency: "Monthly", recipients: "exec-team@corp.com", lastRun: "2025-02-01", status: "Active" },
-  { id: "RPT-002", name: "Weekly Booking Report", frequency: "Weekly", recipients: "travel-mgr@corp.com", lastRun: "2025-02-10", status: "Active" },
-  { id: "RPT-003", name: "Daily Travel Alerts", frequency: "Daily", recipients: "ops@corp.com", lastRun: "2025-02-12", status: "Active" },
-  { id: "RPT-004", name: "Quarterly Finance Review", frequency: "Quarterly", recipients: "cfo@corp.com", lastRun: "2025-01-01", status: "Active" },
-  { id: "RPT-005", name: "Route Analysis", frequency: "Monthly", recipients: "analytics@corp.com", lastRun: "2025-02-01", status: "Paused" },
+  { 
+    id: "REP-001", 
+    name: "Executive Monthly Summary", 
+    frequency: "monthly", 
+    recipients: "exec-team@company.com", 
+    targetRole: "Executive",
+    lastRun: "2024-06-01", 
+    status: "Active" 
+  },
+  { 
+    id: "REP-002", 
+    name: "Finance Weekly Reconciliation", 
+    frequency: "weekly", 
+    recipients: "accounts@company.com", 
+    targetRole: "Finance",
+    lastRun: "2024-06-07", 
+    status: "Active" 
+  },
+  { 
+    id: "REP-003", 
+    name: "Daily Travel Manifest", 
+    frequency: "daily", 
+    recipients: "ops-manager@company.com", 
+    targetRole: "Travel Manager",
+    lastRun: "2024-06-11", 
+    status: "Active" 
+  },
+  { 
+    id: "REP-004", 
+    name: "Tax Compliance Half-Yearly", 
+    frequency: "bi-annual", 
+    recipients: "tax-audit@company.com", 
+    targetRole: "Admin",
+    lastRun: "2024-01-15", 
+    status: "Paused" 
+  }
+];
+
+export const accessLogs = [
+  { 
+    user: "Sarah Admin", 
+    role: "Super Admin", 
+    scope: "Full System Access", 
+    lastActive: "2 mins ago" 
+  },
+  { 
+    user: "John Finance", 
+    role: "Finance Manager", 
+    scope: "Payments, Tax, Savings", 
+    lastActive: "1 hour ago" 
+  },
+  { 
+    user: "Mike Travel", 
+    role: "Travel Manager", 
+    scope: "Bookings, Routes, MMB", 
+    lastActive: "Yesterday" 
+  },
+  { 
+    user: "Regional VP", 
+    role: "Executive", 
+    scope: "Departmental Summary", 
+    lastActive: "3 days ago" 
+  }
 ];
 
 // ---- User activity ----
