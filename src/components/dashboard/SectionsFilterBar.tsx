@@ -8,19 +8,19 @@ import {
   X,
 } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/dashboard/ui/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from "@/components/dashboard/ui/popover";
 import {
   Command,
   CommandEmpty,
   CommandGroup,
   CommandItem,
-} from "@/components/ui/command";
-import { Calendar } from "@/components/ui/calendar";
+} from "@/components/dashboard/ui/command";
+import { Calendar } from "@/components/dashboard/ui/calendar";
 import { cn } from "@/lib/utils";
 
 /* -------------------------------------------------------

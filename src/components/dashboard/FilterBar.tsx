@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Button } from "@/components/dashboard/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/dashboard/ui/select";
 import { useDashboard } from "@/contexts/DashboardContext";
 import { ChevronDown, ChevronUp, SlidersHorizontal } from "lucide-react";
 
@@ -20,8 +20,6 @@ export function FilterBar() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="2025-01-01">2025</SelectItem>
-            <SelectItem value="2024-01-01">2024</SelectItem>
-            <SelectItem value="2025-07-01">H2 2025</SelectItem>
           </SelectContent>
         </Select>
 
@@ -53,64 +51,8 @@ export function FilterBar() {
           </SelectContent>
         </Select>
 
-        <Button
-          variant="ghost"
-          size="sm"
-          className="h-8 text-xs"
-          onClick={() => setShowMoreFilters(!showMoreFilters)}
-        >
-          {showMoreFilters ? "Less" : "More"} Filters
-          {showMoreFilters ? <ChevronUp className="ml-1 h-3 w-3" /> : <ChevronDown className="ml-1 h-3 w-3" />}
-        </Button>
       </div>
 
-      {showMoreFilters && (
-        <div className="mt-3 flex flex-wrap items-center gap-3 border-t border-border pt-3">
-          <Select value={filters.employee} onValueChange={(v) => updateFilter("employee", v)}>
-            <SelectTrigger className="h-8 w-[130px] text-xs">
-              <SelectValue placeholder="Employee" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="All">All Employees</SelectItem>
-              <SelectItem value="John Smith">John Smith</SelectItem>
-              <SelectItem value="Sarah Johnson">Sarah Johnson</SelectItem>
-            </SelectContent>
-          </Select>
-
-          <Select value={filters.route} onValueChange={(v) => updateFilter("route", v)}>
-            <SelectTrigger className="h-8 w-[130px] text-xs">
-              <SelectValue placeholder="Route" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="All">All Routes</SelectItem>
-              <SelectItem value="NYC-LON">NYC → LON</SelectItem>
-              <SelectItem value="SFO-TYO">SFO → TYO</SelectItem>
-            </SelectContent>
-          </Select>
-
-          <Select value={filters.bookingType} onValueChange={(v) => updateFilter("bookingType", v)}>
-            <SelectTrigger className="h-8 w-[140px] text-xs">
-              <SelectValue placeholder="Booking Type" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="All">All Types</SelectItem>
-              <SelectItem value="advance">Advance</SelectItem>
-              <SelectItem value="short-notice">Short Notice</SelectItem>
-            </SelectContent>
-          </Select>
-
-          <Select value={filters.flightType} onValueChange={(v) => updateFilter("flightType", v)}>
-            <SelectTrigger className="h-8 w-[140px] text-xs">
-              <SelectValue placeholder="Flight Type" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="All">All Flights</SelectItem>
-              <SelectItem value="domestic">Domestic</SelectItem>
-              <SelectItem value="international">International</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-      )}
     </div>
   );
 }

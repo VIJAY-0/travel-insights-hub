@@ -5,8 +5,8 @@ import { ChartCard } from "@/components/dashboard/ChartCard";
 import { SectionFilterBar, type SectionFilter, type SectionFilterValue } from "@/components/dashboard/SectionsFilterBar";
 import { paymentHistory, reconciliation, departmentSavings } from "@/data/mock-data";
 import { Wallet, AlertCircle, PiggyBank, History, FileCheck, MapPin, Building2, User, Calendar } from "lucide-react";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/dashboard/ui/table";
+import { Badge } from "@/components/dashboard/ui/badge";
 import {
   LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, Label
 } from "recharts";

@@ -1,9 +1,9 @@
 import { PageHeader } from "@/components/dashboard/PageHeader";
 import { ChartCard } from "@/components/dashboard/ChartCard";
 import { accessMatrix } from "@/data/mock-data";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/dashboard/ui/tabs";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/dashboard/ui/table";
+import { Badge } from "@/components/dashboard/ui/badge";
 
 function AccessCell({ value }: { value: string }) {
   if (value === "-" || value === "None") {

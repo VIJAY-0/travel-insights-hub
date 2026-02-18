@@ -5,7 +5,7 @@ import { ChartCard } from "@/components/dashboard/ChartCard";
 import { SectionFilterBar, type SectionFilter, type SectionFilterValue } from "@/components/dashboard/SectionsFilterBar";
 import { employeeUsage, departmentUsage, userActivity } from "@/data/mock-data";
 import { Users, Building2, UserCheck, MapPin, Briefcase, TrendingUp } from "lucide-react";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/dashboard/ui/table";
 import {
   BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Label, Legend
 } from "recharts";

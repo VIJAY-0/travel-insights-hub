@@ -1,7 +1,7 @@
 import { Bell, User } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { SidebarTrigger } from "@/components/ui/sidebar";
+import { Button } from "@/components/dashboard/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/dashboard/ui/select";
+import { SidebarTrigger } from "@/components/dashboard/ui/sidebar";
 import { useDashboard, Role } from "@/contexts/DashboardContext";
 
 export function Header() {

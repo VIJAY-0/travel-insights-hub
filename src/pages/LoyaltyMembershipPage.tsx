@@ -1,7 +1,7 @@
 // src/pages/LoyaltyMembership.tsx
 
 import { HomeNavbar } from "@/components/navbar/HomeNavbar";
-import LoyaltyMembership from "@/components/LoyaltyMembership";
+import { LoyaltyMembership } from "@/modules/loyalty/LoyaltyMembership";
 
 const LoyaltyMembershipPage = () => {
   return (

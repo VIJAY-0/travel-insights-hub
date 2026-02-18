@@ -4,8 +4,8 @@ import { ChartCard } from "@/components/dashboard/ChartCard";
 import { MetricCard } from "@/components/dashboard/MetricCard";
 import { SectionFilterBar, type SectionFilter, type SectionFilterValue } from "@/components/dashboard/SectionsFilterBar";
 import { routeData, zoneData, optimizationOpportunities } from "@/data/mock-data";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/dashboard/ui/table";
+import { Badge } from "@/components/dashboard/ui/badge";
 import { MapPin, Globe, Building2, Navigation, Lightbulb, Users } from "lucide-react";
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, Label

@@ -1,13 +1,13 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "@/components/dashboard/ui/toaster";
+import { Toaster as Sonner } from "@/components/dashboard/ui/sonner";
+import { TooltipProvider } from "@/components/dashboard/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { DashboardProvider } from "@/contexts/DashboardContext";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 
-import Home from "./pages/Home";
+import HomePage from "./pages/HomePage";
 import OverallSummary from "./pages/dashboard/OverallSummary";
 import CreditUsage from "./pages/dashboard/CreditUsage";
 import BookingTravel from "./pages/dashboard/BookingTravel";
@@ -23,6 +23,7 @@ import NotFound from "./pages/dashboard/NotFound";
 
 
 import LoyaltyMembershipPage from "./pages/LoyaltyMembershipPage"
+import AutoPilotBookingPage from "./pages/AutopilotPage";
 
 
 const queryClient = new QueryClient();
@@ -36,8 +37,9 @@ const App = () => {
 
   <BrowserRouter>
   <Routes>
-    <Route path="/" element={<Home />} />
+    <Route path="/" element={<HomePage />} />
     <Route path="/loyalty-membership" element={<LoyaltyMembershipPage />} />
+    <Route path="/autopilot" element={<AutoPilotBookingPage />} />
 
     <Route
       path="/dashboard"

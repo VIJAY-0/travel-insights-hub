@@ -7,7 +7,7 @@ import { Logo } from "@/components/Logo";
 import {
   Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent,
   SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarHeader, SidebarFooter,
-} from "@/components/ui/sidebar";
+} from "@/components/dashboard/ui/sidebar";
 const navItems = [
   { title: "Overall Summary", url: "", icon: BarChart3 },
   { title: "Credit Usage", url: "credit-usage", icon: CreditCard },

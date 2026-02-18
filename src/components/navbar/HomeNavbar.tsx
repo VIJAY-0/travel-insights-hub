@@ -20,18 +20,19 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
+} from "@/components/dashboard/ui/sheet";
 
 const navItems = [
-  { title: "Dashboards", to: "/dashboard/dashboards", icon: LayoutDashboard },
-
+  { title: "Home", to: "/", icon: User },
   { title: "Edit Profile", to: "/profile", icon: User },
+  { title: "My Trips", to: "/autopilot", icon: Wallet },
   { title: "My Budget", to: "/budget", icon: Wallet },
   { title: "My Travel Policy", to: "/travel-policy", icon: FileText },
   { title: "My Travel Preferences", to: "/travel-preferences", icon: Sliders },
   { title: "Social Media", to: "/social-media", icon: Share2 },
   { title: "Loyalty Membership", to: "/loyalty-membership", icon: Award },
   { title: "Travel History", to: "/travel-history", icon: Clock },
+  { title: "Dashboards", to: "/dashboard/dashboards", icon: LayoutDashboard },
 ];
 
 export function HomeNavbar() {

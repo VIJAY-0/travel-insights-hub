@@ -3,10 +3,10 @@ import { PageHeader } from "@/components/dashboard/PageHeader";
 import { ChartCard } from "@/components/dashboard/ChartCard";
 import { SectionFilterBar, type SectionFilter, type SectionFilterValue } from "@/components/dashboard/SectionsFilterBar";
 import { scheduledReports, accessLogs } from "@/data/mock-data";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/dashboard/ui/badge";
+import { Button } from "@/components/dashboard/ui/button";
 import { Download, ShieldCheck, CalendarClock, Lock, Users, Eye } from "lucide-react";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/dashboard/ui/table";
 
 export default function ExportReports() {
   // Independent filter states per schema requirements
