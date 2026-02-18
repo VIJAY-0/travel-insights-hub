@@ -6,27 +6,31 @@ export function FilterBar() {
   const { filters, updateFilter } = useDashboard();
 
   return (
-    <div className="sticky top-0 z-50 border-b border-border bg-card px-4 py-3 sm:px-6">
+    <div className="sticky top-0 z-50 border-b border-border bg-card px-4 py-1.5 sm:px-6">
       {/* Container for header and dropdowns */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
 
         {/* Filters Header */}
-        <div className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground flex-shrink-0">
-          <SlidersHorizontal className="h-3.5 w-3.5" />
+        <div className="flex items-center gap-1 text-[11px] font-medium text-muted-foreground flex-shrink-0">
+          <SlidersHorizontal className="h-3 w-3" />
           Filters
         </div>
 
         {/* Dropdowns container */}
-<div className="flex items-start gap-3 w-full sm:w-auto overflow-hidden p-5">
-          
+        <div className="flex items-start gap-2 w-full sm:w-auto  p-0.5">
+
           {/* Date Range */}
           <div className="flex-1 min-w-[80px] flex flex-col">
-            <label className="text-xs font-semibold text-muted-foreground mb-1">Date Range</label>
+            <label className="text-[11px] font-semibold text-muted-foreground mb-0.5">
+              Date Range
+            </label>
             <Select
               value={filters.dateRange.from}
-              onValueChange={(v) => updateFilter("dateRange", { from: v, to: filters.dateRange.to })}
+              onValueChange={(v) =>
+                updateFilter("dateRange", { from: v, to: filters.dateRange.to })
+              }
             >
-              <SelectTrigger className="h-8 w-full text-xs focus:outline-none focus:ring-0 focus:border-none">
+              <SelectTrigger className="h-7 w-full text-xs focus:outline-none focus:ring-0 focus:border-none">
                 <SelectValue placeholder="Select date" />
               </SelectTrigger>
               <SelectContent>
@@ -37,9 +41,14 @@ export function FilterBar() {
 
           {/* Department */}
           <div className="flex-1 min-w-[90px] flex flex-col">
-            <label className="text-xs font-semibold text-muted-foreground mb-1">Department</label>
-            <Select value={filters.department} onValueChange={(v) => updateFilter("department", v)}>
-              <SelectTrigger className="h-8 w-full text-xs focus:outline-none focus:ring-0 focus:border-none">
+            <label className="text-[11px] font-semibold text-muted-foreground mb-0.5">
+              Department
+            </label>
+            <Select
+              value={filters.department}
+              onValueChange={(v) => updateFilter("department", v)}
+            >
+              <SelectTrigger className="h-7 w-full text-xs focus:outline-none focus:ring-0 focus:border-none">
                 <SelectValue placeholder="Select department" />
               </SelectTrigger>
               <SelectContent>
@@ -56,9 +65,14 @@ export function FilterBar() {
 
           {/* Office */}
           <div className="flex-1 min-w-[90px] flex flex-col">
-            <label className="text-xs font-semibold text-muted-foreground mb-1">Office</label>
-            <Select value={filters.office} onValueChange={(v) => updateFilter("office", v)}>
-              <SelectTrigger className="h-8 w-full text-xs focus:outline-none focus:ring-0 focus:border-none">
+            <label className="text-[11px] font-semibold text-muted-foreground mb-0.5">
+              Office
+            </label>
+            <Select
+              value={filters.office}
+              onValueChange={(v) => updateFilter("office", v)}
+            >
+              <SelectTrigger className="h-7 w-full text-xs focus:outline-none focus:ring-0 focus:border-none">
                 <SelectValue placeholder="Select office" />
               </SelectTrigger>
               <SelectContent>

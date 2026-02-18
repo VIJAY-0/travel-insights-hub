@@ -14,12 +14,12 @@ import {
 const C = ["hsl(215, 80%, 48%)", "hsl(142, 60%, 40%)", "hsl(38, 92%, 50%)"];
 
 export default function RouteAnalysis() {
-  // 1. Independent filter states per schema requirements
+  // Independent filter states
   const [routeFilters, setRouteFilters] = useState<Record<string, SectionFilterValue | undefined>>({});
   const [zoneFilters, setZoneFilters] = useState<Record<string, SectionFilterValue | undefined>>({});
   const [patternFilters, setPatternFilters] = useState<Record<string, SectionFilterValue | undefined>>({});
 
-  // 2. Filter Configurations based strictly on Schema
+  // Filter configurations
   const routeFilterConfig: SectionFilter[] = [
     { id: "dept", type: "select", label: "Department", icon: MapPin, options: [] },
     { id: "office", type: "select", label: "Office", icon: Building2, options: [] },
@@ -34,16 +34,14 @@ export default function RouteAnalysis() {
   ];
 
   return (
-    <div className="space-y-10 pb-10">
+    <div className="space-y-10 pb-10 w-full overflow-x-hidden">
       <PageHeader 
         title="Route / Zone / Location Analysis" 
         description="Travel patterns by route, zone and geography optimization" 
       />
 
-      {/* SECTION 1: ROUTE-WISE USAGE 
-          Schema: Bookings, credits used, savings per route
-      */}
-      <section className="bg-slate-50/50 p-6 rounded-xl border border-slate-100">
+      {/* SECTION 1: ROUTE-WISE USAGE */}
+      <section className="bg-slate-50/50 p-4 sm:p-6 rounded-xl border border-slate-100">
         <div className="flex justify-between items-end mb-4">
           <h3 className="text-lg font-bold text-slate-800 flex items-center gap-2">
             <Navigation className="w-5 h-5 text-blue-600" /> Route-Wise Usage
@@ -54,8 +52,8 @@ export default function RouteAnalysis() {
         <SectionFilterBar filters={routeFilterConfig} value={routeFilters} onChange={setRouteFilters} />
 
         <div className="grid gap-6 lg:grid-cols-12">
-          <div className="lg:col-span-7">
-            <ChartCard title="Trips by Route">
+          <div className="lg:col-span-7 min-w-0">
+            <ChartCard title="Trips by Route" className="w-full min-w-0">
               <ResponsiveContainer width="100%" height={320}>
                 <BarChart data={routeData} layout="vertical" margin={{ left: 20, right: 30, bottom: 20 }}>
                   <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="hsl(220, 16%, 88%)" />
@@ -69,10 +67,10 @@ export default function RouteAnalysis() {
               </ResponsiveContainer>
             </ChartCard>
           </div>
-          <div className="lg:col-span-5">
-            <ChartCard title="Route Efficiency Details">
+          <div className="lg:col-span-5 min-w-0">
+            <ChartCard title="Route Efficiency Details" className="w-full min-w-0">
               <div className="overflow-x-auto">
-                <Table>
+                <Table className="w-full">
                   <TableHeader>
                     <TableRow>
                       <TableHead>Route</TableHead>
@@ -96,10 +94,8 @@ export default function RouteAnalysis() {
         </div>
       </section>
 
-      {/* SECTION 2: ZONE-WISE USAGE 
-          Schema: Popular zones, credits consumed
-      */}
-      <section>
+      {/* SECTION 2: ZONE-WISE USAGE */}
+      <section className="p-4 sm:p-6">
         <div className="flex justify-between items-end mb-4">
           <h3 className="text-lg font-bold text-slate-800 flex items-center gap-2">
             <Globe className="w-5 h-5 text-emerald-600" /> Zone-Wise Usage
@@ -110,7 +106,7 @@ export default function RouteAnalysis() {
         <SectionFilterBar filters={routeFilterConfig.slice(0, 2)} value={zoneFilters} onChange={setZoneFilters} />
 
         <div className="grid gap-6 lg:grid-cols-2">
-          <ChartCard title="Trips & Credits by Zone">
+          <ChartCard title="Trips & Credits by Zone" className="w-full min-w-0">
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={zoneData} margin={{ bottom: 20 }}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} />
@@ -124,7 +120,7 @@ export default function RouteAnalysis() {
             </ResponsiveContainer>
           </ChartCard>
 
-          <div className="grid grid-cols-1 gap-4">
+          <div className="grid grid-cols-1 gap-4 min-w-0">
             <MetricCard title="Most Active Zone" value="APAC" icon={Globe} />
             <MetricCard title="International Credit Mix" value="42%" change={+5} icon={Navigation} />
             <div className="p-4 bg-blue-50 border border-blue-100 rounded-lg">
@@ -135,10 +131,8 @@ export default function RouteAnalysis() {
         </div>
       </section>
 
-      {/* SECTION 3: TRAVEL PATTERN ANALYSIS (Missing Component)
-          Schema: Optimization opportunities
-      */}
-      <section className="bg-slate-50/50 p-6 rounded-xl border border-slate-100">
+      {/* SECTION 3: TRAVEL PATTERN OPTIMIZATION */}
+      <section className="bg-slate-50/50 p-4 sm:p-6 rounded-xl border border-slate-100">
         <div className="flex justify-between items-end mb-4">
           <h3 className="text-lg font-bold text-slate-800 flex items-center gap-2">
             <Lightbulb className="w-5 h-5 text-amber-600" /> Travel Pattern Optimization
@@ -148,30 +142,32 @@ export default function RouteAnalysis() {
 
         <SectionFilterBar filters={patternFilterConfig} value={patternFilters} onChange={setPatternFilters} />
 
-        <div className="grid gap-6 lg:grid-cols-1">
-          <ChartCard title="Identified Optimization Opportunities">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Pattern / Route</TableHead>
-                  <TableHead>Observation</TableHead>
-                  <TableHead>Recommended Action</TableHead>
-                  <TableHead className="text-right">Potential Savings</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {optimizationOpportunities.map((o, i) => (
-                  <TableRow key={i}>
-                    <TableCell className="font-bold text-xs">{o.route}</TableCell>
-                    <TableCell className="text-xs text-muted-foreground">{o.observation}</TableCell>
-                    <TableCell>
-                      <Badge variant="outline" className="text-[10px] uppercase">{o.recommendation}</Badge>
-                    </TableCell>
-                    <TableCell className="text-right font-bold text-emerald-600 text-xs">${o.potentialSavings.toLocaleString()}</TableCell>
+        <div className="grid gap-6 lg:grid-cols-1 min-w-0">
+          <ChartCard title="Identified Optimization Opportunities" className="w-full min-w-0">
+            <div className="overflow-x-auto">
+              <Table className="w-full">
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Pattern / Route</TableHead>
+                    <TableHead>Observation</TableHead>
+                    <TableHead>Recommended Action</TableHead>
+                    <TableHead className="text-right">Potential Savings</TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHeader>
+                <TableBody>
+                  {optimizationOpportunities.map((o, i) => (
+                    <TableRow key={i}>
+                      <TableCell className="font-bold text-xs">{o.route}</TableCell>
+                      <TableCell className="text-xs text-muted-foreground">{o.observation}</TableCell>
+                      <TableCell>
+                        <Badge variant="outline" className="text-[10px] uppercase">{o.recommendation}</Badge>
+                      </TableCell>
+                      <TableCell className="text-right font-bold text-emerald-600 text-xs">${o.potentialSavings.toLocaleString()}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
           </ChartCard>
         </div>
       </section>

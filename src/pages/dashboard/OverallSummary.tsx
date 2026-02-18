@@ -18,52 +18,20 @@ import {
 } from "recharts";
 import { useDashboard } from "@/contexts/DashboardContext";
 const CHART_COLORS = ["hsl(215, 80%, 48%)", "hsl(142, 60%, 40%)", "hsl(38, 92%, 50%)", "hsl(340, 75%, 55%)", "hsl(262, 60%, 55%)"];
+import type {
+  PassStats,
+  CreditStats,
+  FlightStats,
+  SavingsStats,
 
+} from "@/data/stats"; // <-- keep your actual paths
 
+import {  EmptyPassStats,
+  EmptyCreditStats,
+  EmptyFlightStats,
+  EmptySavingsStats,
+} from "@/data/stats"; // <-- keep your actual paths
 
-export type PassStats = {
-  total: number;
-  byMonth: Record<number, number>;
-  quarterly: number;   // month === 3
-  halfYearly: number;  // month === 6
-  annual: number;     // month === 12
-  byType: Record<string, number>;
-};
-
-const emptyPassStats: PassStats = {
-  total: 0,
-  byMonth: {},
-  quarterly: 0,
-  halfYearly: 0,
-  annual: 0,
-  byType: {},
-};
-
-export type CreditStats = {
-  totalPurchased: number;
-  totalConsumed: number;
-  totalBlocked: number;
-  remaining: number;
-};
-const EmptyCreditStats = {
-  totalPurchased: 0,
-  totalConsumed: 0,
-  totalBlocked: 0,
-  remaining: 0,
-};
-
-export type FlightStats = {
-  totalFlightsTaken: number;
-};
-const EmptyFlightStats = {
-  totalFlightsTaken: 0,
-};
-export type SavingsStats = {
-  totalSavingsAchieved: number;
-};
-const EmptySavingsStats = {
-  totalSavingsAchieved: 0,
-};
 
 
 
@@ -77,7 +45,7 @@ export default function OverallSummary() {
 
 
   const [monthlyTrend, setMonthlyTrend] = useState([])
-  const [passStats, setPassStats] = useState<PassStats>(emptyPassStats)
+  const [passStats, setPassStats] = useState<PassStats>(EmptyPassStats)
   const [creditStats, setCreditStats] = useState<CreditStats>(EmptyCreditStats)
   const [flightStats, setFlightStats] = useState<FlightStats>(EmptyFlightStats)
   const [savingsStats, setSavingStats] = useState<SavingsStats>(EmptySavingsStats)
@@ -177,15 +145,13 @@ export default function OverallSummary() {
       annual: getAnnualPasses(passes, passFilter),
       byType: getPassesByType(passes, passFilter),
     };
-
-
     setPassStats(filteredStats)
 
     // console.log(monthlyTrendFilters)
     console.log(passFilter)
 
     const mt = buildMonthlyTrend(bookings, monthlyTrendFilters)
-    // console.log(mt)
+    console.log(mt)
     console.log(filteredStats)
     setMonthlyTrend(mt)
   }, [filters]);

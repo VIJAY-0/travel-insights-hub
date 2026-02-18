@@ -48,6 +48,7 @@ export default function ExportReports() {
 
         <ChartCard
           title="Automated Distribution Logs"
+          className="w-full min-w-0"
           action={
             <Button size="sm" variant="outline" className="h-7 text-xs">
               <Download className="mr-1 h-3.5 w-3.5" />
@@ -107,7 +108,7 @@ export default function ExportReports() {
 
         <div className="grid gap-6 lg:grid-cols-12">
           <div className="lg:col-span-8">
-            <ChartCard title="Data Visibility & Access Logs">
+            <ChartCard className="w-full min-w-0" title="Data Visibility & Access Logs">
               <div className="overflow-x-auto">
                 <Table>
                   <TableHeader>
