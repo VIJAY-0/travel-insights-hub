@@ -20,6 +20,8 @@ import Dashboards from "./pages/dashboard/Dashboards";
 import ExportReports from "./pages/dashboard/ExportReports";
 import SettingsPage from "./pages/dashboard/SettingsPage";
 import NotFound from "./pages/dashboard/NotFound";
+import { MobilePreviewProvider } from "@/contexts/MobilePreviewContext";
+
 
 
 import LoyaltyMembershipPage from "./pages/LoyaltyMembershipPage"
@@ -36,6 +38,8 @@ const App = () => {
         <Sonner />
 
   <BrowserRouter>
+    <MobilePreviewProvider>
+
   <Routes>
     <Route path="/" element={<HomePage />} />
     <Route path="/loyalty-membership" element={<LoyaltyMembershipPage />} />
@@ -48,7 +52,7 @@ const App = () => {
           <DashboardLayout />
         </DashboardProvider>
       }
-    >
+      >
       <Route index element={<OverallSummary />} />
       <Route path="credit-usage" element={<CreditUsage />} />
       <Route path="booking-travel" element={<BookingTravel />} />
@@ -64,6 +68,7 @@ const App = () => {
 
     <Route path="*" element={<NotFound />} />
   </Routes>
+      </MobilePreviewProvider>
 </BrowserRouter>
 
       </TooltipProvider>

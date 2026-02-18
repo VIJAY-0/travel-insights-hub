@@ -8,6 +8,11 @@ import {
   Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent,
   SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarHeader, SidebarFooter,
 } from "@/components/dashboard/ui/sidebar";
+
+
+import { Smartphone, Monitor } from "lucide-react";
+import { useMobilePreview } from "@/contexts/MobilePreviewContext";
+
 const navItems = [
   { title: "Overall Summary", url: "", icon: BarChart3 },
   { title: "Credit Usage", url: "credit-usage", icon: CreditCard },
@@ -23,6 +28,10 @@ const navItems = [
 
 
 export function AppSidebar() {
+
+
+    const { mobilePreview, toggleMobilePreview } = useMobilePreview();
+
   return (
     <Sidebar className="border-r-0">
       <SidebarHeader className="p-0">
@@ -53,22 +62,46 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter className="p-2">
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild>
-              <NavLink
-                to="settings"
-                className="flex items-center gap-3 rounded-md px-3 py-2 text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
-                activeClassName="bg-sidebar-accent text-sidebar-accent-foreground font-medium"
-              >
-                <Settings className="h-4 w-4 shrink-0" />
-                <span>Settings</span>
-              </NavLink>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarFooter>
+ <SidebarFooter className="p-2">
+  <SidebarMenu>
+
+    {/* Mobile preview toggle */}
+    <SidebarMenuItem>
+      <SidebarMenuButton
+        onClick={toggleMobilePreview}
+        className="flex items-center gap-3 rounded-md px-3 py-2 text-sm"
+      >
+        {mobilePreview ? (
+          <>
+            <Monitor className="h-4 w-4 shrink-0" />
+            <span>Desktop preview (TESTING)</span>
+          </>
+        ) : (
+          <>
+            <Smartphone className="h-4 w-4 shrink-0" />
+            <span>Mobile preview (TESTING)</span>
+          </>
+        )}
+      </SidebarMenuButton>
+    </SidebarMenuItem>
+
+    {/* Settings */}
+    <SidebarMenuItem>
+      <SidebarMenuButton asChild>
+        <NavLink
+          to="settings"
+          className="flex items-center gap-3 rounded-md px-3 py-2 text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+          activeClassName="bg-sidebar-accent text-sidebar-accent-foreground font-medium"
+        >
+          <Settings className="h-4 w-4 shrink-0" />
+          <span>Settings</span>
+        </NavLink>
+      </SidebarMenuButton>
+    </SidebarMenuItem>
+
+  </SidebarMenu>
+</SidebarFooter>
+
     </Sidebar>
   );
 }

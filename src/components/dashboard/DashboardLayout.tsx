@@ -3,12 +3,15 @@ import { AppSidebar } from "./AppSidebar";
 import { Header } from "./Header";
 import { FilterBar } from "./FilterBar";
 import { Outlet } from "react-router-dom";
+import { MobilePreviewFrame } from "@/components/MobilePreviewFrame";
+
 
 export function DashboardLayout() {
   return (
+        <MobilePreviewFrame>
     <SidebarProvider>
       <div className="flex min-h-screen w-full">
-        <AppSidebar />
+          <AppSidebar />
 
         <SidebarInset className="flex flex-col">
           <Header />
@@ -20,5 +23,6 @@ export function DashboardLayout() {
         </SidebarInset>
       </div>
     </SidebarProvider>
+        </MobilePreviewFrame>
   );
 }
