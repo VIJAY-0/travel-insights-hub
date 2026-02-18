@@ -23,7 +23,7 @@ import NotFound from "./pages/dashboard/NotFound";
 
 
 import LoyaltyMembershipPage from "./pages/LoyaltyMembershipPage"
-import AutoPilotBookingPage from "./pages/AutopilotPage";
+// import AutoPilotBookingPage from "./pages/AutopilotPage";
 
 
 const queryClient = new QueryClient();
@@ -39,7 +39,7 @@ const App = () => {
   <Routes>
     <Route path="/" element={<HomePage />} />
     <Route path="/loyalty-membership" element={<LoyaltyMembershipPage />} />
-    <Route path="/autopilot" element={<AutoPilotBookingPage />} />
+    {/* <Route path="/autopilot" element={<AutoPilotBookingPage />} /> */}
 
     <Route
       path="/dashboard"
