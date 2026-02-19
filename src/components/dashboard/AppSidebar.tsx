@@ -1,7 +1,9 @@
+import { useEffect, useRef } from "react";
 import {
   BarChart3, CreditCard, Plane, Users, MapPin, FileText,
   Wallet, Receipt, LayoutDashboard, Download, Settings
 } from "lucide-react";
+import { useSidebar } from "@/components/dashboard/ui/sidebar";
 import { NavLink } from "@/components/NavLink";
 import { Logo } from "@/components/Logo";
 import {
@@ -12,6 +14,7 @@ import {
 
 import { Smartphone, Monitor } from "lucide-react";
 import { useMobilePreview } from "@/contexts/MobilePreviewContext";
+
 
 const navItems = [
   { title: "Overall Summary", url: "", icon: BarChart3 },
@@ -28,80 +31,112 @@ const navItems = [
 
 
 export function AppSidebar() {
-
-
+  const sidebarRef = useRef<HTMLDivElement>(null);
     const { mobilePreview, toggleMobilePreview } = useMobilePreview();
+  const {
+    isMobile,
+    openMobile,
+    setOpenMobile,
+    setOpen,
+    open,
+  } = useSidebar();
+
+  useEffect(() => {
+    // ✅ only when sidebar is shown as mobile popover
+    if (!isMobile || !openMobile) return;
+
+    const handler = (e: MouseEvent | TouchEvent) => {
+      if (!sidebarRef.current) return;
+
+      if (!sidebarRef.current.contains(e.target as Node)) {
+        setOpenMobile(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handler);
+    document.addEventListener("touchstart", handler);
+
+    return () => {
+      document.removeEventListener("mousedown", handler);
+      document.removeEventListener("touchstart", handler);
+    };
+  }, [isMobile, openMobile, setOpenMobile]);
+
+
+  const handleClick = () =>{
+    if (!isMobile || !openMobile) return;
+    setOpen(false)
+  }
 
   return (
-    <Sidebar className="border-r-0">
-      <SidebarHeader className="p-0">
-        <Logo />
-      </SidebarHeader>
+    <div ref={sidebarRef}>
+      <Sidebar className="border-r-0">
+        <SidebarHeader className="p-0">
+          <Logo />
+        </SidebarHeader>
 
-      <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {navItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <NavLink
-                      to={item.url}
-                      end={item.url === "/"}
-                      className="flex items-center gap-3 rounded-md px-3 py-2 text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
-                      activeClassName="bg-sidebar-accent text-sidebar-accent-foreground font-medium"
-                    >
-                      <item.icon className="h-4 w-4 shrink-0" />
-                      <span>{item.title}</span>
-                    </NavLink>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-      </SidebarContent>
+        <SidebarContent>
+          <SidebarGroup>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {navItems.map((item) => (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild>
+                      <NavLink
+                        to={item.url}
+                        end={item.url === "/"}
+                        className="flex items-center gap-3 rounded-md px-3 py-2 text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                        activeClassName="bg-sidebar-accent text-sidebar-accent-foreground font-medium"
+                        onClick={() => handleClick()}   // optional: close after nav
+                      >
+                        <item.icon className="h-4 w-4 shrink-0" />
+                        <span>{item.title}</span>
+                      </NavLink>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </SidebarContent>
 
- <SidebarFooter className="p-2">
-  <SidebarMenu>
+        <SidebarFooter className="p-2">
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                onClick={toggleMobilePreview}
+                className="flex items-center gap-3 rounded-md px-3 py-2 text-sm"
+              >
+                {mobilePreview ? (
+                  <>
+                    <Monitor className="h-4 w-4 shrink-0" />
+                    <span>Desktop preview (TESTING)</span>
+                  </>
+                ) : (
+                  <>
+                    <Smartphone className="h-4 w-4 shrink-0" />
+                    <span>Mobile preview (TESTING)</span>
+                  </>
+                )}
+              </SidebarMenuButton>
+            </SidebarMenuItem>
 
-    {/* Mobile preview toggle */}
-    <SidebarMenuItem>
-      <SidebarMenuButton
-        onClick={toggleMobilePreview}
-        className="flex items-center gap-3 rounded-md px-3 py-2 text-sm"
-      >
-        {mobilePreview ? (
-          <>
-            <Monitor className="h-4 w-4 shrink-0" />
-            <span>Desktop preview (TESTING)</span>
-          </>
-        ) : (
-          <>
-            <Smartphone className="h-4 w-4 shrink-0" />
-            <span>Mobile preview (TESTING)</span>
-          </>
-        )}
-      </SidebarMenuButton>
-    </SidebarMenuItem>
-
-    {/* Settings */}
-    <SidebarMenuItem>
-      <SidebarMenuButton asChild>
-        <NavLink
-          to="settings"
-          className="flex items-center gap-3 rounded-md px-3 py-2 text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
-          activeClassName="bg-sidebar-accent text-sidebar-accent-foreground font-medium"
-        >
-          <Settings className="h-4 w-4 shrink-0" />
-          <span>Settings</span>
-        </NavLink>
-      </SidebarMenuButton>
-    </SidebarMenuItem>
-
-  </SidebarMenu>
-</SidebarFooter>
-
-    </Sidebar>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <NavLink
+                  to="settings"
+                  className="flex items-center gap-3 rounded-md px-3 py-2 text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                  activeClassName="bg-sidebar-accent text-sidebar-accent-foreground font-medium"
+                  onClick={() => setOpen(false)}
+                >
+                  <Settings className="h-4 w-4 shrink-0" />
+                  <span>Settings</span>
+                </NavLink>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarFooter>
+      </Sidebar>
+    </div>
   );
 }
