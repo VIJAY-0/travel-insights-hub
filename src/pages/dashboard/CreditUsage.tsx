@@ -115,26 +115,30 @@ export default function CreditUsage() {
   /* ------------------------------------------------------------------ */
   /*  Builders (DO NOT change names)                                     */
   /* ------------------------------------------------------------------ */
-  const buildCreditStat = (rows: MonthlyTrendRow[]): CreditStats => {
+  const buildCreditStat = (
+    rows: MonthlyTrendRow[]
+  ): CreditStats => {
+
     let totalPurchased = 0;
     let totalConsumed = 0;
     let totalBlocked = 0;
-
+    let totalRemaining = 0;
+    
     for (const r of rows) {
       totalPurchased += r.credits;
       totalConsumed += r.consumed;
       totalBlocked += r.allocated;
+      totalRemaining +=r.remaining;
     }
-
-    const remaining = totalPurchased - totalConsumed - totalBlocked;
 
     return {
       totalPurchased,
       totalConsumed,
       totalBlocked,
-      remaining,
+      totalRemaining,
     };
-  };
+  }
+
 
   const buildFlightStats = (rows: MonthlyTrendRow[]): FlightStats => {
     let totalFlightsTaken = 0;
@@ -157,6 +161,7 @@ export default function CreditUsage() {
 
     return {
       totalSavingsAchieved,
+      departmentalSavings:null
     };
   };
 
@@ -166,7 +171,7 @@ export default function CreditUsage() {
   useEffect(() => {
     const monthlyTrendFilters: MonthlyTrendFilters = {
       financialYear: filters.dateRange
-        ? `${"2024"}-${new Date(filters.dateRange.to).getFullYear()}`
+        ? `${new Date(filters.dateRange.to).getFullYear()}`
         : undefined,
 
       department:
@@ -330,7 +335,7 @@ export default function CreditUsage() {
             />
             <MetricCard
               title="Remaining Credits"
-              value={creditStats.remaining.toLocaleString()}
+              value={creditStats.totalRemaining.toLocaleString()}
               icon={Clock}
             />
           </div>

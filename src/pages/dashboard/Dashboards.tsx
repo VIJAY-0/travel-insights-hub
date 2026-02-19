@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PageHeader } from "@/components/dashboard/PageHeader";
 import { MetricCard } from "@/components/dashboard/MetricCard";
 import { ChartCard } from "@/components/dashboard/ChartCard";
@@ -34,6 +34,7 @@ const fullFilters: SectionFilter[] = [
 // Schema: High-level metrics, trends, top departments, route usage
 // cite: image_1f8a0f.png
 function ExecutiveDashboard() {
+
   const [trendFilters, setTrendFilters] = useState<Record<string, SectionFilterValue | undefined>>({});
   const [routeFilters, setRouteFilters] = useState<Record<string, SectionFilterValue | undefined>>({});
 
@@ -175,7 +176,17 @@ function TravelManagerDashboard() {
 }
 
 export default function Dashboards() {
-  const { role } = useDashboard();
+
+    const {role, setRole} =useDashboard()
+  useEffect(()=>{
+    setRole("Admin")
+  },[])
+  useEffect(() => {
+  return () => {
+    setRole("Null");
+  };
+}, []);
+
 
   return (
     <div className="space-y-6">

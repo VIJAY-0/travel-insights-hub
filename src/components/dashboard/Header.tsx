@@ -18,17 +18,22 @@ export function Header() {
       </div>
 
       <div className="flex items-center gap-3">
-        <Select value={role} onValueChange={(v) => setRole(v as Role)}>
-          <SelectTrigger className="h-8 w-[150px] text-xs">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="Executive">Executive</SelectItem>
-            <SelectItem value="Finance">Finance</SelectItem>
-            <SelectItem value="Travel Manager">Travel Manager</SelectItem>
-            <SelectItem value="Admin">Admin</SelectItem>
-          </SelectContent>
-        </Select>
+        {role != "Null" &&
+          <>
+            View
+            <Select value={role} onValueChange={(v) => setRole(v as Role)}>
+              <SelectTrigger className="h-8 w-[150px] text-xs">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Executive">Executive</SelectItem>
+                <SelectItem value="Finance">Finance</SelectItem>
+                <SelectItem value="Travel Manager">Travel Manager</SelectItem>
+                <SelectItem value="Admin">Admin</SelectItem>
+              </SelectContent>
+            </Select>
+          </>
+        }
 
         <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground">
           <Bell className="h-4 w-4" />
@@ -38,6 +43,7 @@ export function Header() {
           <User className="h-4 w-4" />
         </div>
       </div>
+
     </header>
   );
 }

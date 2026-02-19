@@ -18,12 +18,12 @@ import {
 } from "recharts";
 import { useDashboard } from "@/contexts/DashboardContext";
 const CHART_COLORS = ["hsl(215, 80%, 48%)", "hsl(142, 60%, 40%)", "hsl(38, 92%, 50%)", "hsl(340, 75%, 55%)", "hsl(262, 60%, 55%)"];
-import type {
+import {
   PassStats,
   CreditStats,
   FlightStats,
   SavingsStats,
-
+  departmentSavingsStats,
 } from "@/data/stats"; // <-- keep your actual paths
 
 import {  EmptyPassStats,
@@ -41,8 +41,6 @@ export default function OverallSummary() {
   const [creditFilters, setCreditFilters] = useState<Record<string, SectionFilterValue | undefined>>({});
   const [flightFilters, setFlightFilters] = useState<Record<string, SectionFilterValue | undefined>>({});
   const [savingsFilters, setSavingsFilters] = useState<Record<string, SectionFilterValue | undefined>>({});
-
-
 
   const [monthlyTrend, setMonthlyTrend] = useState([])
   const [passStats, setPassStats] = useState<PassStats>(EmptyPassStats)
@@ -62,21 +60,20 @@ export default function OverallSummary() {
     let totalPurchased = 0;
     let totalConsumed = 0;
     let totalBlocked = 0;
-
+    let totalRemaining = 0;
+    
     for (const r of rows) {
       totalPurchased += r.credits;
       totalConsumed += r.consumed;
       totalBlocked += r.allocated;
+      totalRemaining +=r.remaining;
     }
-
-    const remaining =
-      totalPurchased - totalConsumed - totalBlocked;
 
     return {
       totalPurchased,
       totalConsumed,
       totalBlocked,
-      remaining
+      totalRemaining,
     };
   }
 
@@ -106,19 +103,18 @@ export default function OverallSummary() {
 
     return {
       totalSavingsAchieved,
+      departmentalSavings:{},
     };
   }
 
-
-
-
   useEffect(() => {
+    console.log("----------------")
+    console.log(filters.dateRange)
+    console.log("----------------")
     const monthlyTrendFilters: MonthlyTrendFilters = {
       financialYear: filters.dateRange
         // ? `${new Date(filters.dateRange.from).getFullYear()}-${new Date(
-        ? `${"2024"}-${new Date(
-          filters.dateRange.to
-        ).getFullYear()}`
+        ? `${new Date(filters.dateRange.to).getFullYear()}`
         : undefined,
 
       department:
@@ -154,6 +150,8 @@ export default function OverallSummary() {
     console.log(mt)
     console.log(filteredStats)
     setMonthlyTrend(mt)
+
+
   }, [filters]);
 
 
@@ -162,8 +160,14 @@ export default function OverallSummary() {
     setCreditStats(cs)
     const fs = buildFlightStats(monthlyTrend);
     const ss = buildSavingsStats(monthlyTrend);
+
     setFlightStats(fs)
     setSavingStats(ss)
+        console.log(departmentSavingsStats())
+    const ds = departmentSavingsStats()
+    const newSS = savingsStats
+    newSS.departmentalSavings = ds.departmentalSavings
+    setSavingStats(newSS)
 
   }, [monthlyTrend])
 
@@ -257,7 +261,7 @@ export default function OverallSummary() {
 
           <MetricCard
             title="Remaining"
-            value={creditStats.remaining}
+            value={creditStats.totalRemaining}
             change={-22}
             icon={Clock}
           />
@@ -337,7 +341,7 @@ export default function OverallSummary() {
 
           <ChartCard title="Domestic vs International Mix">
             <ResponsiveContainer width="100%" height={280}>
-              <BarChart data={flightTypeData}>
+              <BarChart data={monthlyTrend}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} />
                 <XAxis dataKey="month" />
                 <YAxis />
@@ -383,7 +387,7 @@ export default function OverallSummary() {
 
           <ChartCard title="Savings by Department">
             <ResponsiveContainer width="100%" height={280}>
-              <BarChart data={departmentSavings} layout="vertical">
+              <BarChart data={toDepartmentSavingsArray(savingsStats.departmentalSavings)} layout="vertical">
                 <CartesianGrid strokeDasharray="3 3" horizontal={false} />
                 <XAxis
                   type="number"
@@ -409,3 +413,19 @@ export default function OverallSummary() {
     </div>
   );
 }
+
+
+type SavingsByDepartment = Record<string, number>;
+
+export const toDepartmentSavingsArray = (
+  data: SavingsByDepartment
+): { department: string; savings: number }[] => {
+  console.log(data)
+  return Object.entries(data)
+    .filter(([key]) => key !== "totalSavingsAchieved")
+    .map(([department, savings]) => ({
+      department,
+      savings,
+    }));
+};
+

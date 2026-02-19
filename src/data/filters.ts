@@ -1,78 +1,50 @@
-export type BookingRecord = {
-  employee_id: string;
-  employee_name: string;
+import { BookingRecord } from "./bookings";
 
-  department: string;
-  office: string;
-  role: string;
+function isInYearOrFY(date: Date, period: string) {
+  // ---------- Full calendar year (ex: "2024") ----------
+  if (/^\d{4}$/.test(period)) {
+    const year = Number(period);
+    const start = new Date(year, 0, 1, 0, 0, 0);   // 1 Jan
+    const end   = new Date(year, 11, 31, 23, 59, 59); // 31 Dec
+    return date >= start && date <= end;
+  }
 
-  booking_id: string;
-  booking_date: string; // ISO date (yyyy-mm-dd)
+  // ---------- Financial year range (ex: "2024-2025") ----------
+  if (period.includes("-")) {
+    const [start, end] = period.split("-").map(Number);
 
-  booking_status: string;
+    const fyStart = new Date(start, 3, 1, 0, 0, 0); // 1 Apr
+    const fyEnd   = new Date(end, 2, 31, 23, 59, 59); // 31 Mar
 
-  route: string;
-  zone: string; // e.g. "Domestic-East"
-  is_peak: boolean;
-
-  pass_type: string;
-
-  credits_allocated: number;
-  credits_used: number;
-  credits_remaining: number;
-
-  baggage_credits: number;
-  upgrade_credits: number;
-
-  total_spend: number;
-  savings: number;
-  tax_amount: number;
-  payment_amount: number;
-
-  payment_status: string;
-
-  active_user: boolean;
-  last_active_days_ago: number;
-
-  booking_changes: number;
-  cancellations: number;
-  no_shows: number;
-
-  extra_baggage_purchased: number;
-  credit_topups: number;
-  pass_extensions: number;
-
-  upsell_usage: number;
-};
-
-
-
-function isInFinancialYear(date: Date, fy: string) {
-  // supports "2024-2025" or "FY24"
-  if (fy.includes("-")) {
-    const [start, end] = fy.split("-").map(Number);
-    const fyStart = new Date(start, 3, 1); // 1 Apr
-    const fyEnd = new Date(end, 2, 31, 23, 59, 59); // 31 Mar
     return date >= fyStart && date <= fyEnd;
   }
 
-  // FY24 → 2024-04-01 to 2025-03-31
-  const year = 2000 + Number(fy.replace("FY", ""));
-  const fyStart = new Date(year, 3, 1);
-  const fyEnd = new Date(year + 1, 2, 31, 23, 59, 59);
+  // ---------- Financial year short form (ex: "FY24") ----------
+  if (period.startsWith("FY")) {
+    const year = 2000 + Number(period.replace("FY", ""));
 
-  return date >= fyStart && date <= fyEnd;
+    const fyStart = new Date(year, 3, 1, 0, 0, 0);
+    const fyEnd   = new Date(year + 1, 2, 31, 23, 59, 59);
+
+    return date >= fyStart && date <= fyEnd;
+  }
+
+  return false;
 }
+
 
 export type MonthlyTrendRow = {
   month: string;
   credits: number;
   flights: number;
+  international:number;
+  domestic: number;
   bookings: number;
   spend: number;
 
   consumed: number;
   allocated: number;
+  remaining:number;
   baggage: number;
   upgrades: number;
 
@@ -98,34 +70,35 @@ export function buildMonthlyTrend(
   bookings: BookingRecord[],
   filters: MonthlyTrendFilters
 ): MonthlyTrendRow[] {
+  console.log(filters.financialYear)
 
-const filtered = bookings.filter((b) => {
-  const d = new Date(b.booking_date);
+  const filtered = bookings.filter((b) => {
+    const d = new Date(b.booking_date);
 
-  // financial year
-  if (filters.financialYear != null && filters.financialYear !== "") {
-    if (!isInFinancialYear(d, filters.financialYear)) return false;
-  }
+    // financial year
+    if (filters.financialYear != null && filters.financialYear !== "") {
+      if (!isInYearOrFY(d, filters.financialYear)) return false;
+    }
 
-  // department
-  if (Array.isArray(filters.department) && filters.department.length > 0) {
-    if (!filters.department.includes(b.department)) return false;
-  }
+    // department
+    if (Array.isArray(filters.department) && filters.department.length > 0) {
+      if (!filters.department.includes(b.department)) return false;
+    }
 
-  // office
-  if (Array.isArray(filters.office) && filters.office.length > 0) {
-    if (!filters.office.includes(b.office)) return false;
-  }
+    // office
+    if (Array.isArray(filters.office) && filters.office.length > 0) {
+      if (!filters.office.includes(b.office)) return false;
+    }
 
-  return true;
-});
+    return true;
+  });
 
 
   const map = new Map<string, MonthlyTrendRow & { _y: number; _m: number }>();
 
   for (const b of filtered) {
     const d = new Date(b.booking_date);
-    // console.log(b.booking_date)
+    console.log(b.booking_date)
     const key = `${d.getFullYear()}-${d.getMonth()}`;
 
     if (!map.has(key)) {
@@ -137,10 +110,13 @@ const filtered = bookings.filter((b) => {
 
         credits: 0,
         flights: 0,
+        international:0,
+        domestic:0,
         bookings: 0,
         spend: 0,
 
         consumed: 0,
+        remaining:0,
         allocated: 0,
         baggage: 0,
         upgrades: 0,
@@ -163,11 +139,14 @@ const filtered = bookings.filter((b) => {
     // counts
     row.bookings += 1;
     row.flights += 1;
+    if (b.is_internation_flight) row.international+=1
+    else row.domestic+=1
 
     // ---- credits mapping (important) ----
-    row.credits += b.credits_remaining;      // headline credits
+    row.credits += b.credits_allocated;      // headline credits
     row.consumed += b.credits_used;
     row.allocated += b.credits_allocated;
+    row.remaining+= b.credits_remaining
 
     // ---- spend & money ----
     row.spend += b.total_spend;

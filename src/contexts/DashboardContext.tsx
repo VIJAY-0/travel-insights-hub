@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
-export type Role = "Executive" | "Finance" | "Travel Manager" | "Admin";
+export type Role = "Executive" | "Finance" | "Travel Manager" | "Admin" | "Null";
 
 interface Filters {
   dateRange: { from: string; to: string };
@@ -39,7 +39,7 @@ const defaultFilters: Filters = {
 const DashboardContext = createContext<DashboardContextType | null>(null);
 
 export function DashboardProvider({ children }: { children: ReactNode }) {
-  const [role, setRole] = useState<Role>("Executive");
+  const [role, setRole] = useState<Role>("Null");
   const [filters, setFilters] = useState<Filters>(defaultFilters);
   const [showMoreFilters, setShowMoreFilters] = useState(false);
 
